@@ -1,0 +1,322 @@
+openapi: 3.0.4
+info:
+  title: "kAsk"
+  description: Здесь IT-специалисты получают ответы на свои вопросы
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/v1
+tags:
+  - name: question
+    description: Вопрос
+paths:
+  /question/create:
+    post:
+      tags:
+        - question
+      summary: Создать вопрос
+      operationId: questionCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionCreateResponse'
+  /question/read:
+    post:
+      tags:
+        - question
+      summary: Прочитать вопрос
+      operationId: questionRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionReadResponse'
+  /question/update:
+    post:
+      tags:
+        - question
+      summary: Обновить вопрос
+      operationId: questionUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionUpdateResponse'
+  /question/delete:
+    post:
+      tags:
+        - question
+      summary: Удалить вопрос
+      operationId: questionDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDeleteResponse'
+components:
+  schemas:
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        requestId:
+          type: string
+          description: Идентификатор запроса для отладки
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/QuestionCreateRequest'
+          read: '#/components/schemas/QuestionReadRequest'
+          update: '#/components/schemas/QuestionUpdateRequest'
+          delete: '#/components/schemas/QuestionDeleteRequest'
+    Error:
+      description: Ошибка
+      type: object
+      properties:
+        code:
+          description: Код ошибки
+          type: string
+        group:
+          description: Группа ошибок
+          type: string
+        field:
+          description: Название поля
+          type: string
+        message:
+          description: Сообщение
+          type: string
+    ResponseResult:
+      description: Результат запроса
+      type: string
+      enum:
+        - success
+        - error
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        requestId:
+          type: string
+          description: Идентификатор запроса для отладки
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/QuestionCreateResponse'
+          read: '#/components/schemas/QuestionReadResponse'
+          update: '#/components/schemas/QuestionUpdateResponse'
+          delete: '#/components/schemas/QuestionDeleteResponse'
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    QuestionId:
+      type: string
+      description: Идентификатор вопроса
+    QuestionLock:
+      type: string
+      description: Версия оптимистичной блокировки
+    QuestionBase:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        title:
+          type: string
+          description: Заголовок вопроса
+        description:
+          type: string
+          description: Описание вопроса
+    QuestionCreateObject:
+      description: Создание вопроса
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+    QuestionCreateRequest:
+      description: Создание вопроса
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/QuestionRequestDebug'
+        - type: object
+          properties:
+            question:
+              $ref: '#/components/schemas/QuestionCreateObject'
+    QuestionReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/QuestionId'
+    QuestionReadRequest:
+      description: Чтение данных вопроса
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/QuestionRequestDebug'
+        - type: object
+          properties:
+            question:
+              $ref: '#/components/schemas/QuestionReadObject'
+    QuestionUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/QuestionId'
+            lock:
+              $ref: '#/components/schemas/QuestionLock'
+    QuestionUpdateRequest:
+      description: Изменение данных вопроса
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/QuestionRequestDebug'
+        - type: object
+          properties:
+            question:
+              $ref: '#/components/schemas/QuestionUpdateObject'
+    QuestionDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/QuestionId'
+            lock:
+              $ref: '#/components/schemas/QuestionLock'
+    QuestionDeleteRequest:
+      description: Удаление вопроса
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/QuestionRequestDebug'
+        - type: object
+          properties:
+            question:
+              $ref: '#/components/schemas/QuestionDeleteObject'
+    QuestionResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+        - type: object
+          description: Ответ
+          properties:
+            id:
+              $ref: '#/components/schemas/QuestionId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/QuestionLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/QuestionPermissions'
+    QuestionPermissions:
+      type: string
+      description: Доступы для пользователя для операций над вопросом
+      enum:
+        - read
+        - update
+        - delete
+    QuestionResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом вопроса
+          properties:
+            question:
+              $ref: '#/components/schemas/QuestionResponseObject'
+    QuestionCreateResponse:
+      description: Результат создания вопроса
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/QuestionResponseSingle'
+    QuestionReadResponse:
+      description: Данные вопроса
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/QuestionResponseSingle'
+    QuestionUpdateResponse:
+      description: Результат обновления данных вопроса
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/QuestionResponseSingle'
+    QuestionDeleteResponse:
+      description: Результат удаления вопроса
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/QuestionResponseSingle'
+    QuestionRequestDebugMode:
+      description: Перечисление всех режимов
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+    QuestionRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/QuestionDebug'
+    QuestionDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/QuestionRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/QuestionRequestDebugStubs'
+    QuestionRequestDebugStubs:
+      type: string
+      description: Перечисления всех заглушек
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - cannotDelete
