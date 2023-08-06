@@ -1,6 +1,4 @@
-rootProject.name = "ok-marketplace"
-
-include("m1l1-hello")
+rootProject.name = "kotlin-backend-developer-professional-otus"
 
 pluginManagement {
     val kotlinVersion: String by settings
@@ -9,3 +7,5 @@ pluginManagement {
         kotlin("jvm") version kotlinVersion apply false
     }
 }
+
+include("m1l1-hello")
