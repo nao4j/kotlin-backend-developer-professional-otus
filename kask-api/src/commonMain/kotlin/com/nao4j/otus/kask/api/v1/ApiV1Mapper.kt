@@ -17,7 +17,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 
-internal val apiV2Mapper = Json {
+internal val apiV1Mapper = Json {
     classDiscriminator = "_"
     encodeDefaults = true
     ignoreUnknownKeys = true
@@ -40,13 +40,13 @@ internal val infos = listOf(
 )
 
 fun apiV1RequestSerialize(request: IRequest): String =
-    apiV2Mapper.encodeToString(request)
+    apiV1Mapper.encodeToString(request)
 
 fun <T : IRequest> apiV1RequestDeserialize(json: String): T =
-    apiV2Mapper.decodeFromString<IRequest>(json) as T
+    apiV1Mapper.decodeFromString<IRequest>(json) as T
 
 fun apiV1ResponseSerialize(response: IResponse): String =
-    apiV2Mapper.encodeToString(response)
+    apiV1Mapper.encodeToString(response)
 
 fun <T : IResponse> apiV1ResponseDeserialize(json: String): T =
-    apiV2Mapper.decodeFromString<IResponse>(json) as T
+    apiV1Mapper.decodeFromString<IResponse>(json) as T
