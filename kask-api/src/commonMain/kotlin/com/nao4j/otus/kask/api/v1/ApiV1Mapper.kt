@@ -17,7 +17,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 
-internal val apiV1Mapper = Json {
+val apiV1Mapper = Json {
     classDiscriminator = "_"
     encodeDefaults = true
     ignoreUnknownKeys = true
