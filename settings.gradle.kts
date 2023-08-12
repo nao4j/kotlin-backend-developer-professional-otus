@@ -13,4 +13,6 @@ pluginManagement {
 }
 
 include("m1l1-hello")
-include("kask-api")
+include("kask-common")
+include("kask-api-v1")
+include("kask-mapping-v1")

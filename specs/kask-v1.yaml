@@ -164,9 +164,6 @@ components:
     QuestionId:
       type: string
       description: Идентификатор вопроса
-    QuestionLock:
-      type: string
-      description: Версия оптимистичной блокировки
     QuestionBase:
       type: object
       description: Объект описывает свойства, одинаковые для create и update
@@ -212,8 +209,6 @@ components:
           properties:
             id:
               $ref: '#/components/schemas/QuestionId'
-            lock:
-              $ref: '#/components/schemas/QuestionLock'
     QuestionUpdateRequest:
       description: Изменение данных вопроса
       allOf:
@@ -229,8 +224,6 @@ components:
           properties:
             id:
               $ref: '#/components/schemas/QuestionId'
-            lock:
-              $ref: '#/components/schemas/QuestionLock'
     QuestionDeleteRequest:
       description: Удаление вопроса
       allOf:
@@ -250,20 +243,6 @@ components:
               $ref: '#/components/schemas/QuestionId'
             ownerId:
               $ref: '#/components/schemas/UserId'
-            lock:
-              $ref: '#/components/schemas/QuestionLock'
-            permissions:
-              type: array
-              uniqueItems: true
-              items:
-                $ref: '#/components/schemas/QuestionPermissions'
-    QuestionPermissions:
-      type: string
-      description: Доступы для пользователя для операций над вопросом
-      enum:
-        - read
-        - update
-        - delete
     QuestionResponseSingle:
       allOf:
         - type: object

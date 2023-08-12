@@ -2,6 +2,7 @@ package com.nao4j.otus.kask.api.v1
 
 import com.nao4j.otus.kask.api.v1.models.IRequest
 import com.nao4j.otus.kask.api.v1.models.IResponse
+import kotlin.reflect.KClass
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
@@ -17,7 +18,6 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.modules.SerializersModuleBuilder
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.serializer
-import kotlin.reflect.KClass
 
 private val requestSerializer = PolymorphicSerializer(IRequest::class, "requestType")
 private val responseSerializer = PolymorphicSerializer(IResponse::class, "responseType")
