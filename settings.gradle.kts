@@ -4,6 +4,7 @@ pluginManagement {
     val kotlinVersion: String by settings
     val openapiVersion: String by settings
     val ktorVersion: String by settings
+    val bmuschkoVersion: String by settings
 
     plugins {
         kotlin("jvm") version kotlinVersion apply false
@@ -11,6 +12,8 @@ pluginManagement {
 
         id("org.openapi.generator") version openapiVersion apply false
         id("io.ktor.plugin") version ktorVersion apply false
+
+        id("com.bmuschko.docker-java-application") version bmuschkoVersion apply false
     }
 }
 
@@ -21,3 +24,4 @@ include("kask-mapping-v1")
 include("kask-biz")
 include("kask-stub")
 include("question-app-ktor")
+include("question-app-rabbit")
