@@ -10,6 +10,7 @@ allprojects {
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
         google()
+        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
     }
 }
 
