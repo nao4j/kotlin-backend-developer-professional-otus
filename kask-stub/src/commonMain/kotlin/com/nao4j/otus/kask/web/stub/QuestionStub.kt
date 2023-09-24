@@ -6,7 +6,7 @@ import kotlinx.datetime.Instant
 
 object QuestionStub {
 
-    fun get(id: Question.QuestionId): Question =
+    fun get(id: Question.QuestionId = Question.QuestionId.NONE): Question =
         if (id != Question.QuestionId.NONE) {
             QUESTION.copy(id = id)
         } else {
