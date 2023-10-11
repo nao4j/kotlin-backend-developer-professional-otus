@@ -19,6 +19,8 @@ data class QuestionContext(
     var requestId: RequestId = RequestId.NONE,
     var timeStart: Instant = Instant.NONE,
     var questionRequest: Question = Question(),
+    var questionValidating: Question = Question(),
+    var questionValidated: Question = Question(),
     var questionResponse: Question = Question(),
 
     var questionsResponse: MutableList<Question> = mutableListOf(),
