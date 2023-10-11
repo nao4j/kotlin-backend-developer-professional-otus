@@ -14,7 +14,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class AdReadStubTest {
+class QuestionReadStubTest {
 
     private val processor = QuestionProcessor()
     private val id = Question.QuestionId("666")
