@@ -14,3 +14,16 @@ fun errorValidation(
     message = "Validation error for field $field: $description",
     level = level
 )
+
+fun errorAdministration(
+    field: String = "",
+    violationCode: String,
+    description: String,
+    level: ProcessingError.Level = ProcessingError.Level.ERROR,
+) = ProcessingError(
+    field = field,
+    code = "administration-$violationCode",
+    group = "administration",
+    message = "Microservice management error: $description",
+    level = level,
+)

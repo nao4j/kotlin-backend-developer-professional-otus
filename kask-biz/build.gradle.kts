@@ -28,6 +28,10 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-junit"))
 
+                implementation(project(":kask-repo-test"))
+                implementation(project(":kask-repo-stub"))
+                implementation(project(":kask-repo-in-memory"))
+
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
