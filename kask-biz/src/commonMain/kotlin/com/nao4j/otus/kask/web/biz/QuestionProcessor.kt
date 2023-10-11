@@ -7,7 +7,7 @@ import com.nao4j.otus.kask.cor.rootChain
 import com.nao4j.otus.kask.cor.worker
 import com.nao4j.otus.kask.web.biz.group.operation
 import com.nao4j.otus.kask.web.biz.group.stubs
-import com.nao4j.otus.kask.web.biz.validation.finishAdValidation
+import com.nao4j.otus.kask.web.biz.validation.finishQuestionValidation
 import com.nao4j.otus.kask.web.biz.validation.validateDescriptionHasContent
 import com.nao4j.otus.kask.web.biz.validation.validateDescriptionNotEmpty
 import com.nao4j.otus.kask.web.biz.validation.validateIdNotEmpty
@@ -54,7 +54,7 @@ class QuestionProcessor {
                     validateDescriptionNotEmpty("Проверка, что описание не пусто")
                     validateDescriptionHasContent("Проверка символов")
 
-                    finishAdValidation("Успешное завершение процедуры валидации")
+                    finishQuestionValidation("Успешное завершение процедуры валидации")
                 }
             }
             operation("Получить вопрос", Command.READ) {
@@ -70,7 +70,7 @@ class QuestionProcessor {
                     validateIdNotEmpty("Проверка на непустой id")
                     validateIdProperFormat("Проверка формата id")
 
-                    finishAdValidation("Успешное завершение процедуры валидации")
+                    finishQuestionValidation("Успешное завершение процедуры валидации")
                 }
             }
             operation("Изменить вопрос", Command.UPDATE) {
@@ -94,7 +94,7 @@ class QuestionProcessor {
                     validateDescriptionNotEmpty("Проверка на непустое описание")
                     validateDescriptionHasContent("Проверка на наличие содержания в описании")
 
-                    finishAdValidation("Успешное завершение процедуры валидации")
+                    finishQuestionValidation("Успешное завершение процедуры валидации")
                 }
             }
             operation("Удалить вопрос", Command.DELETE) {
@@ -110,7 +110,7 @@ class QuestionProcessor {
                     validateIdNotEmpty("Проверка на непустой id")
                     validateIdProperFormat("Проверка формата id")
 
-                    finishAdValidation("Успешное завершение процедуры валидации")
+                    finishQuestionValidation("Успешное завершение процедуры валидации")
                 }
             }
         }.build()
