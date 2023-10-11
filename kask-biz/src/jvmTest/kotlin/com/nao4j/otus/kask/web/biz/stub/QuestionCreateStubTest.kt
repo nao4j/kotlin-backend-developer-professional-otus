@@ -14,62 +14,90 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class AdDeleteStubTest {
+class QuestionCreateStubTest {
 
     private val processor = QuestionProcessor()
     private val id = Question.QuestionId("666")
+    private val title = "title 666"
+    private val description = "desc 666"
 
     @Test
-    fun delete() = runTest {
+    fun create() = runTest {
         val ctx = QuestionContext(
-            command = Command.DELETE,
+            command = Command.CREATE,
             state = State.NONE,
             workMode = WorkMode.STUB,
             stubCase = StubCase.SUCCESS,
             questionRequest = Question(
-                id = id
+                id = id,
+                title = title,
+                description = description
             )
         )
-        
+
         processor.exec(ctx)
 
-        val stub = QuestionStub.get()
-        assertEquals(stub.id, ctx.questionResponse.id)
-        assertEquals(stub.title, ctx.questionResponse.title)
-        assertEquals(stub.description, ctx.questionResponse.description)
+        assertEquals(QuestionStub.get().id, ctx.questionResponse.id)
+        assertEquals(title, ctx.questionResponse.title)
+        assertEquals(description, ctx.questionResponse.description)
     }
 
     @Test
-    fun badId() = runTest {
+    fun badTitle() = runTest {
         val ctx = QuestionContext(
-            command = Command.DELETE,
+            command = Command.CREATE,
             state = State.NONE,
             workMode = WorkMode.STUB,
-            stubCase = StubCase.BAD_ID,
-            questionRequest = Question(),
+            stubCase = StubCase.BAD_TITLE,
+            questionRequest = Question(
+                id = id,
+                title = "",
+                description = description
+            )
         )
-        
+
         processor.exec(ctx)
-        
+
         assertEquals(Question(), ctx.questionResponse)
-        assertEquals("id", ctx.errors.firstOrNull()?.field)
+        assertEquals("title", ctx.errors.firstOrNull()?.field)
+        assertEquals("validation", ctx.errors.firstOrNull()?.group)
+    }
+
+    @Test
+    fun badDescription() = runTest {
+        val ctx = QuestionContext(
+            command = Command.CREATE,
+            state = State.NONE,
+            workMode = WorkMode.STUB,
+            stubCase = StubCase.BAD_DESCRIPTION,
+            questionRequest = Question(
+                id = id,
+                title = title,
+                description = ""
+            )
+        )
+
+        processor.exec(ctx)
+
+        assertEquals(Question(), ctx.questionResponse)
+        assertEquals("description", ctx.errors.firstOrNull()?.field)
         assertEquals("validation", ctx.errors.firstOrNull()?.group)
     }
 
     @Test
     fun databaseError() = runTest {
         val ctx = QuestionContext(
-            command = Command.DELETE,
+            command = Command.CREATE,
             state = State.NONE,
             workMode = WorkMode.STUB,
             stubCase = StubCase.DB_ERROR,
             questionRequest = Question(
                 id = id,
-            ),
+            )
         )
-        
+
         processor.exec(ctx)
-        
+
         assertEquals(Question(), ctx.questionResponse)
         assertEquals("internal", ctx.errors.firstOrNull()?.group)
     }
@@ -77,18 +105,21 @@ class AdDeleteStubTest {
     @Test
     fun badNoCase() = runTest {
         val ctx = QuestionContext(
-            command = Command.DELETE,
+            command = Command.CREATE,
             state = State.NONE,
             workMode = WorkMode.STUB,
-            stubCase = StubCase.BAD_TITLE,
+            stubCase = StubCase.BAD_ID,
             questionRequest = Question(
                 id = id,
-            ),
+                title = title,
+                description = description
+            )
         )
-        
+
         processor.exec(ctx)
-        
+
         assertEquals(Question(), ctx.questionResponse)
         assertEquals("stub", ctx.errors.firstOrNull()?.field)
+        assertEquals("validation", ctx.errors.firstOrNull()?.group)
     }
 }
