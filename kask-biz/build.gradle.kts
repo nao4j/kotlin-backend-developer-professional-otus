@@ -6,7 +6,6 @@ kotlin {
     jvm {}
     linuxX64 {}
     macosX64 {}
-    macosArm64 {}
 
     sourceSets {
         val coroutinesVersion: String by project
@@ -20,14 +19,14 @@ kotlin {
 
                 implementation(project(":kask-common"))
                 implementation(project(":kask-stub"))
+                implementation(project(":kask-lib-cor"))
             }
         }
 
         @Suppress("UNUSED_VARIABLE")
-        val commonTest by getting {
+        val jvmTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test-junit"))
 
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
