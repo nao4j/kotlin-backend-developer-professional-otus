@@ -77,7 +77,7 @@ class V1QuestionStubApiTest {
         assertEquals(expected = 200, actual = response.status.value)
 
         val responseBody = response.body<QuestionReadResponse>()
-        assertEquals(expected = "42", actual = responseBody.question?.id)
+        assertEquals(expected = "64", actual = responseBody.question?.id)
     }
 
     @Test
@@ -127,7 +127,7 @@ class V1QuestionStubApiTest {
         assertEquals(expected = 200, actual = response.status.value)
 
         val responseBody = response.body<QuestionDeleteResponse>()
-        assertEquals(expected = "42", actual = responseBody.question?.id)
+        assertEquals(expected = "64", actual = responseBody.question?.id)
     }
 
     private fun ApplicationTestBuilder.testClient() = createClient {
