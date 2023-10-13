@@ -13,6 +13,9 @@ object QuestionStub {
             QUESTION.copy(id = Question.QuestionId("64"))
         }
 
+    fun prepareResult(block: Question.() -> Unit): Question =
+        get().apply(block)
+
     private val QUESTION = Question(
         id = Question.QuestionId("42"),
         title = "Здравствуйте! Это канал про аниме?",

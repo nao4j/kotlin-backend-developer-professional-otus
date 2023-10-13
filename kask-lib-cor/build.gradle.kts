@@ -4,31 +4,29 @@ plugins {
 
 kotlin {
     jvm {}
-    linuxX64 {}
     macosX64 {}
+    linuxX64 {}
 
     sourceSets {
-        val datetimeVersion: String by project
+        val coroutinesVersion: String by project
 
         val commonMain by getting {
             dependencies {
-                implementation(project(":kask-common"))
-                implementation(project(":kask-api-v1"))
-
                 implementation(kotlin("stdlib-common"))
-
-                api("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
+
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib"))
+                implementation(kotlin("stdlib-jdk8"))
             }
         }
         val jvmTest by getting {
