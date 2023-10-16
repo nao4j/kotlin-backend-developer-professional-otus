@@ -30,7 +30,6 @@ import kotlin.test.assertEquals
 import org.junit.Test
 
 class V1QuestionStubApiTest {
-
     @Test
     fun create() = testApplication {
         val response = testClient().post("/v1/question/create") {

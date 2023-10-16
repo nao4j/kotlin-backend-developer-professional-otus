@@ -2,6 +2,17 @@ package com.nao4j.otus.kask.common.helper
 
 import com.nao4j.otus.kask.common.models.ProcessingError
 
+val errorEmptyId = ProcessingError(
+    field = "id",
+    message = "Id must not be null or blank"
+)
+
+val errorNotFound = ProcessingError(
+    field = "id",
+    message = "Not Found",
+    code = "not-found"
+)
+
 fun errorValidation(
     field: String,
     violationCode: String,
@@ -26,4 +37,16 @@ fun errorAdministration(
     group = "administration",
     message = "Microservice management error: $description",
     level = level,
+)
+
+fun Throwable.asProcessingError(
+    code: String = "unknown",
+    group: String = "exceptions",
+    message: String = this.message ?: ""
+) = ProcessingError(
+    code = code,
+    group = group,
+    field = "",
+    message = message,
+    exception = this
 )

@@ -7,39 +7,39 @@ import com.nao4j.otus.kask.api.v1.models.QuestionUpdateRequest
 import com.nao4j.otus.kask.common.QuestionContext
 import com.nao4j.otus.kask.mapper.v1.fromTransport
 import com.nao4j.otus.kask.mapper.v1.toTransportQuestion
-import com.nao4j.otus.kask.web.biz.QuestionProcessor
+import com.nao4j.otus.kask.web.ApplicationSettings
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 
-suspend fun ApplicationCall.createQuestion(processor: QuestionProcessor) {
+suspend fun ApplicationCall.createQuestion(settings: ApplicationSettings) {
     val request = receive<QuestionCreateRequest>()
     val context = QuestionContext()
     context.fromTransport(request)
-    processor.exec(context)
+    settings.processor.exec(context)
     respond(context.toTransportQuestion())
 }
 
-suspend fun ApplicationCall.readQuestion(processor: QuestionProcessor) {
+suspend fun ApplicationCall.readQuestion(settings: ApplicationSettings) {
     val request = receive<QuestionReadRequest>()
     val context = QuestionContext()
     context.fromTransport(request)
-    processor.exec(context)
+    settings.processor.exec(context)
     respond(context.toTransportQuestion())
 }
 
-suspend fun ApplicationCall.updateQuestion(processor: QuestionProcessor) {
+suspend fun ApplicationCall.updateQuestion(settings: ApplicationSettings) {
     val request = receive<QuestionUpdateRequest>()
     val context = QuestionContext()
     context.fromTransport(request)
-    processor.exec(context)
+    settings.processor.exec(context)
     respond(context.toTransportQuestion())
 }
 
-suspend fun ApplicationCall.deleteQuestion(processor: QuestionProcessor) {
+suspend fun ApplicationCall.deleteQuestion(settings: ApplicationSettings) {
     val request = receive<QuestionDeleteRequest>()
     val context = QuestionContext()
     context.fromTransport(request)
-    processor.exec(context)
+    settings.processor.exec(context)
     respond(context.toTransportQuestion())
 }

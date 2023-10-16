@@ -55,6 +55,7 @@ kotlin {
                 implementation(project(":kask-biz"))
                 implementation(project(":kask-repo-stub"))
                 implementation(project(":kask-repo-in-memory"))
+                implementation(project(":kask-repo-postgres"))
 
                 implementation(kotlin("stdlib-jdk8"))
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
