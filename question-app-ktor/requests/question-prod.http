@@ -1,6 +1,7 @@
 ### Создание вопроса
-POST http://localhost:8080/v1/question/create
+POST {{baseUrl}}/v1/question/create
 Content-Type: application/json
+Accept: application/json
 
 {
   "requestType": "create",
@@ -15,8 +16,9 @@ Content-Type: application/json
 }
 
 ### Чтение вопроса
-POST http://localhost:8080/v1/question/read
+POST {{baseUrl}}/v1/question/read
 Content-Type: application/json
+Accept: application/json
 
 {
   "requestType": "read",
@@ -30,8 +32,9 @@ Content-Type: application/json
 }
 
 ### Обновление вопроса
-POST http://localhost:8080/v1/question/update
+POST {{baseUrl}}/v1/question/update
 Content-Type: application/json
+Accept: application/json
 
 {
   "requestType": "update",
@@ -47,8 +50,9 @@ Content-Type: application/json
 }
 
 ### Удаление вопроса
-POST http://localhost:8080/v1/question/delete
+POST {{baseUrl}}/v1/question/delete
 Content-Type: application/json
+Accept: application/json
 
 {
   "requestType": "delete",
