@@ -18,19 +18,19 @@ plugins {
 }
 
 application {
-    mainClass.set("io.ktor.server.cio.EngineMain")
+    mainClass.set("io.ktor.server.netty.EngineMain")
 }
 
 ktor {
     docker {
-        localImageName.set(project.name + "-ktor")
-        imageTag.set(project.version.toString())
+        localImageName.set(rootProject.name + "-ktor")
+        imageTag.set(rootProject.version.toString())
         jreVersion.set(JRE_17)
     }
 }
 
 jib {
-    container.mainClass = "io.ktor.server.cio.EngineMain"
+    container.mainClass = "io.ktor.server.netty.EngineMain"
 }
 
 kotlin {
