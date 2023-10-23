@@ -1,24 +1,24 @@
 package com.nao4j.otus.kask.web.v1
 
-import com.nao4j.otus.kask.web.biz.QuestionProcessor
+import com.nao4j.otus.kask.web.ApplicationSettings
 import io.ktor.server.application.call
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
-fun Route.v1Question(processor: QuestionProcessor) {
+fun Route.v1Question(settings: ApplicationSettings) {
     route("question") {
         post("create") {
-            call.createQuestion(processor)
+            call.createQuestion(settings)
         }
         post("read") {
-            call.readQuestion(processor)
+            call.readQuestion(settings)
         }
         post("update") {
-            call.updateQuestion(processor)
+            call.updateQuestion(settings)
         }
         post("delete") {
-            call.deleteQuestion(processor)
+            call.deleteQuestion(settings)
         }
     }
 }
