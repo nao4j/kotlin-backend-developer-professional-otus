@@ -24,7 +24,7 @@ class QuestionRepoPostgres(
 
     init {
         Database.connect(
-            url = properties.url,
+            url = "${properties.url}?currentSchema=${properties.schema}",
             driver = when {
                 properties.url.startsWith("jdbc:postgresql://") -> "org.postgresql.Driver"
                 else -> throw IllegalArgumentException("Unknown driver for url ${properties.url}")

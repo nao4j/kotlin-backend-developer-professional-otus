@@ -23,7 +23,7 @@ services:
       retries: 5
 
   app:
-    image: kotlin-backend-developer-professional-otus-ktor
+    image: question-app-ktor:1.0.0-SNAPSHOT
     ports:
       - "8080:8080"
     expose:
@@ -31,3 +31,10 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      app.db.prod.type: postgres
+      app.db.prod.url: jdbc:postgresql://postgres:5432/postgres
+      app.db.prod.user: postgres
+      app.db.prod.password: postgres
+      app.db.prod.schema: kask_question_ktor
+

@@ -1,0 +1,66 @@
+### Создание вопроса
+POST {{baseUrl}}/v1/question/create
+Content-Type: application/json
+Accept: application/json
+
+{
+  "requestType": "create",
+  "requestId": "1",
+  "debug": {
+    "mode": "PROD"
+  },
+  "question": {
+    "title": "Пример создания вопроса",
+    "description": "Детали примера вопроса"
+  }
+}
+
+### Чтение вопроса
+POST {{baseUrl}}/v1/question/read
+Content-Type: application/json
+Accept: application/json
+
+{
+  "requestType": "read",
+  "requestId": "1",
+  "debug": {
+    "mode": "PROD"
+  },
+  "question": {
+    "id": "00000000-0000-0000-0000-000000000001"
+  }
+}
+
+### Обновление вопроса
+POST {{baseUrl}}/v1/question/update
+Content-Type: application/json
+Accept: application/json
+
+{
+  "requestType": "update",
+  "requestId": "1",
+  "debug": {
+    "mode": "PROD"
+  },
+  "question": {
+    "id": "00000000-0000-0000-0000-000000000001",
+    "title": "Тестовое обновление",
+    "description": "Обновленное тело"
+  }
+}
+
+### Удаление вопроса
+POST {{baseUrl}}/v1/question/delete
+Content-Type: application/json
+Accept: application/json
+
+{
+  "requestType": "delete",
+  "requestId": "1",
+  "debug": {
+    "mode": "PROD"
+  },
+  "question": {
+    "id": "00000000-0000-0000-0000-000000000001"
+  }
+}
